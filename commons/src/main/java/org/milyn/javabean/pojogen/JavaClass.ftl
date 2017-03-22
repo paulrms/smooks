@@ -30,5 +30,18 @@ public class ${class.className}${class.implementsDecl}${class.extendsDecl} {
     public ${method.returnType} ${method.methodName}${method.paramSignature} {
         ${method.body}
     }
+    <#if method.parameters?size == 1 && method.parameters[0].type.type.name == "java.util.List">
+
+    <#assign jType = method.parameters[0].type>
+    <#assign varName = method.parameters[0].name>
+    public ${method.returnType} add${varName?cap_first}(${jType.genericType.simpleName} ${varName}) {
+        if(this.${varName} == null) {
+            this.${varName} = java.util.Arrays.asList(${varName});
+        } else {
+            this.${varName}.add(${varName});
+        }
+        return this;
+    }
+    </#if>
     </#list>
 }
