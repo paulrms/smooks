@@ -36,9 +36,10 @@ public class ${class.className}${class.implementsDecl}${class.extendsDecl} {
     <#assign varName = method.parameters[0].name>
     public ${method.returnType} add${varName?cap_first}(${jType.genericType.simpleName} ${varName}) {
         if(this.${varName} == null) {
-            this.${varName} = java.util.Arrays.asList(${varName});
+           this.${varName} = new java.util.ArrayList<${jType.genericType.simpleName}>();
+           this.${varName}.add(${varName});
         } else {
-            this.${varName}.add(${varName});
+           this.${varName}.add(${varName});
         }
         return this;
     }
